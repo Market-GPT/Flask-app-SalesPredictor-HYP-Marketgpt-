@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+        }
+        input[type="text"], input[type="submit"] {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Predict your sales</h1>
+    <p>Enter your previous sales data (comma-separated):</p>
+    <form action="/sub" method="post">
+        <label for="previousSales">Previous Sales:</label>
+        <input type="text" id="previousSales" name="previousSales" placeholder="e.g., 5000, 4500, 5200" required>
+        <input type="submit" value="Predict">
+    </form>
+</body>
+</html>
+
+
+
+
