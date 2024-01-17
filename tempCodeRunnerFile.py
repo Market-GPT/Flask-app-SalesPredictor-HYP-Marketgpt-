@@ -12,17 +12,24 @@ def submit():
     if request.method == "POST":
         input_sales = request.form["previousSales"]
 
+        # Validate input: Check if it's a comma-separated list of numbers
+        if not all(item.strip().replace('.', '', 1).isdigit() for item in input_sales.split(',')):
+            return "Invalid input format. Please enter a comma-separated list of numbers."
+
         try:
             prediction = sales.sales_prediction(input_sales, './model.h5')
         except Exception as e:
-            # Simple error message handling if error.html doesn't exist
+            # Improved error handling
             return f"An error occurred: {e}"
 
         return render_template("sub.html", prediction=prediction)
 
 @app.route("/data_drift_report")
 def data_drift_report():
+    # Call the function to get the content of the data drift report
+    report_content = sales.get_data_drift_report_content()
     return render_template("data_drift_report.html")
+    
 
 @app.route("/target_drift_report")
 def target_drift_report():
@@ -30,3 +37,9 @@ def target_drift_report():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
+
+
+
