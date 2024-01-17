@@ -6,3 +6,4 @@ scikit-learn
 evidently
 Gunicorn
 json
+matplotlib
