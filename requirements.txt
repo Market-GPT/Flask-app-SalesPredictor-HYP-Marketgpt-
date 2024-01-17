@@ -5,5 +5,5 @@ tensorflow
 scikit-learn
 evidently
 Gunicorn
-json
+
 matplotlib
