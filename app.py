@@ -35,8 +35,8 @@ def data_drift_report():
 def target_drift_report():
     return render_template("target_drift_report.html")
 
-if __name__ == "__main__":
-    app.run(debug=True)
+""" if __name__ == "__main__":
+    app.run(debug=True) """
 
 
 
