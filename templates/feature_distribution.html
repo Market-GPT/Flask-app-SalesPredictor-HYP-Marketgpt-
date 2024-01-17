@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Distribution</title>
+    <!-- Add any additional CSS or JavaScript libraries if needed -->
+</head>
+<body>
+    <div class="container">
+        <h2>Feature Distribution</h2>
+
+        <!-- Display the histogram image -->
+        <div>
+            <img src="{{ url_for('static', filename='plots/reference_sales_hist.png') }}" alt="Feature Distribution">
+        </div>
+        <div>
+            <img src="{{ url_for('static', filename='plots/current_sales_hist.png') }}" alt="Feature Distribution">
+        </div>
+
+        <!-- Add any additional content or interactive elements here if needed -->
+
+        <a href="/">Back to Home</a>
+    </div>
+</body>
+</html>

@@ -26,17 +26,25 @@ def submit():
 
 @app.route("/data_drift_report")
 def data_drift_report():
-    # Call the function to get the content of the data drift report
-    report_content = sales.get_data_drift_report_content()
-    return render_template("data_drift_report.html")
-    
+    data_drift_info = sales.get_data_drift_report_content()
+    return render_template("data_drift_report.html", 
+                           total_columns=data_drift_info['total_columns'], 
+                           drifted_columns_count=data_drift_info['drifted_columns_count'], 
+                           drifted_columns_names=data_drift_info['drifted_columns_names'])
 
 @app.route("/target_drift_report")
 def target_drift_report():
     return render_template("target_drift_report.html")
 
+@app.route("/feature_distribution")
+def feature_distribution():
+    sales.feature_distribution()
+    return render_template("feature_distribution.html")
+
+
 """ if __name__ == "__main__":
     app.run(debug=True) """
+
 
 
 

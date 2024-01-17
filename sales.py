@@ -5,7 +5,8 @@ from evidently.report import Report
 from evidently import ColumnMapping
 from evidently.metric_preset import DataDriftPreset, RegressionPreset, TargetDriftPreset
 import pandas as pd
-
+import json
+import matplotlib.pyplot as plt
 # Load the data for scaling
 df = pd.read_csv('./Datasetpreprocessed_data.csv')
 scaler = MinMaxScaler()
@@ -55,11 +56,51 @@ def generate_evidently_report(df_reference, df_current, column_mapping):
     # Generating a data drift report
     data_drift_report = Report(metrics=[DataDriftPreset()])
     data_drift_report.run(current_data=df_current, reference_data=df_reference, column_mapping=column_mapping)
-    data_drift_report.save('./templates/data_drift_report.html')
+    data_drift_report.save('./static/evidently_reports/data_drift_report.html')
+    data_drift_report.save("./templates/snapshot.json")
 
 def get_data_drift_report_content():
     generate_evidently_report(df_reference, df_current, column_mapping)
+    # Initialize the drift information dictionary
+    drift_info = {
+        'total_columns': 0,
+        'drifted_columns_count': 0,
+        'drifted_columns_names': []
+    }
 
+    # Read the JSON data for drift information
+    with open("./templates/snapshot.json") as json_file:
+        data = json.load(json_file)
+
+        # Extracting drift information
+        metric_results = data["suite"]["metric_results"]
+        for metric in metric_results:
+            if metric["type"] == "evidently.metrics.data_drift.dataset_drift_metric.DatasetDriftMetricResults":
+                drift_info['total_columns'] = metric["number_of_columns"]
+                drift_info['drifted_columns_count'] = metric["number_of_drifted_columns"]
+
+            if metric["type"] == "evidently.metrics.data_drift.data_drift_table.DataDriftTableResults":
+                drifted_columns_info = metric["drift_by_columns"]
+                for column_name, column_info in drifted_columns_info.items():
+                    if column_info["drift_detected"]:
+                        drift_info['drifted_columns_names'].append(column_name)
+
+    return drift_info
+def create_histogram(data, title, file_name):
+    plt.figure(figsize=(10, 6))
+    plt.hist(data, bins=20, edgecolor='black')
+    plt.title(title)
+    plt.xlabel('Value')
+    plt.ylabel('Frequency')
+    plt.savefig(f'./static/plots/{file_name}.png')
+    plt.close()
+    
+def feature_distribution():
+    # Generate the histogram for a specific feature
+    feature_data = df_current['Net_Sales']  # Replace with actual column name
+    create_histogram(feature_data, 'Current Sales Frequency', 'current_sales_hist')
+    feature_data = df_reference['Net_Sales']  # Replace with actual column name 
+    create_histogram(feature_data, 'Reference Sales Frequency', 'reference_sales_hist')
 # Example usage (for testing)
 # result = sales_prediction('5000,4500,5200', 'path_to_model.h5')
 # print(result)
