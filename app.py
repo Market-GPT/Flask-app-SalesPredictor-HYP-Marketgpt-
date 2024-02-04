@@ -42,8 +42,8 @@ def feature_distribution():
     return render_template("feature_distribution.html")
 
 
-""" if __name__ == "__main__":
-    app.run(debug=True) """
+if __name__ == "__main__":
+    app.run(debug=True)
 
 
 

@@ -101,6 +101,24 @@ def feature_distribution():
     create_histogram(feature_data, 'Current Sales Frequency', 'current_sales_hist')
     feature_data = df_reference['Net_Sales']  # Replace with actual column name 
     create_histogram(feature_data, 'Reference Sales Frequency', 'reference_sales_hist')
+    feature_data = df_current['Reach']  # Replace with actual column name
+    create_histogram(feature_data, 'Current Reach Frequency', 'current_sales_hist1')
+    feature_data = df_reference['Reach']  # Replace with actual column name 
+    create_histogram(feature_data, 'Reference Reach Frequency', 'reference_sales_hist1')
+    feature_data = df_current['Impressions']  # Replace with actual column name
+    create_histogram(feature_data, 'Current Impressions Frequency', 'current_sales_hist2')
+    feature_data = df_reference['Impressions']  # Replace with actual column name 
+    create_histogram(feature_data, 'Reference Impressions Frequency', 'reference_sales_hist2')
+    feature_data = df_current['Unique link clicks']  # Replace with actual column name
+    create_histogram(feature_data, 'Current Unique link clicks Frequency', 'current_sales_hist3')
+    feature_data = df_reference['Unique link clicks']  # Replace with actual column name 
+    create_histogram(feature_data, 'Reference Unique lik clicks Frequency', 'reference_sales_hist3')
+    feature_data = df_current['Amount Spent HYP 20']  # Replace with actual column name
+    create_histogram(feature_data, 'Current Amount spent hyp 20 Frequency', 'current_sales_hist4')
+    feature_data = df_reference['Amount Spent HYP 20']  # Replace with actual column name 
+    create_histogram(feature_data, 'Reference amount spent hyp 20 Frequency', 'reference_sales_hist4')
+    
+
 # Example usage (for testing)
 # result = sales_prediction('5000,4500,5200', 'path_to_model.h5')
 # print(result)
